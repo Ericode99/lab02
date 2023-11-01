@@ -16,4 +16,4 @@ Dictionary:
 ["lexikon", "dict_name", dictionary]
 ["lexikon_wert_holen", "dict_name", "keyname"]
 ["lexikon_wert_setzen", "dict_name", "keyname"]
-["lexika_zusammenfuehren", ["get", "dict1"], ["get", "dict2"]]
+["lexika_zusammenfuehren", dict1", dict2"]
