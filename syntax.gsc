@@ -1,9 +1,9 @@
 Multiplication:
-["multiplizieren", ["get", var1], ["get", var2]]
+["multiplizieren", ["aufrufen", var1], ["aufrufen", var2]]
 Division:
-["dividieren", ["get", var1], ["get", var2]] //var2 uf 0 checke
+["dividieren", ["aufrufen", var1], ["aufrufen", var2]] //var2 uf 0 checke
 Power:
-["hochrechnen", ["get", nummer], ["get", exponent]]
+["hochrechnen", ["aufrufen", nummer], ["aufrufen", exponent]]
 Print:
 ["ausgeben", ..., ..., ...]
 While:

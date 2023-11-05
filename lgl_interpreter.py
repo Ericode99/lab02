@@ -37,29 +37,18 @@ def envs_get(envs, name):
         if name in e:
             return e[name]
 
-    # python like version
-    # if name in envs[-1]:
-    #    return e[name]
-    # if name in envs[0]:
-    #    return e[name]
     assert False, f"Unknown variable name {name}"
 
 
 def envs_set(envs, name, value):
     assert isinstance(name, str)
-    # for e in reversed(envs):
-    #     if name in e:
-    #         e[name] = value
-    #         return
+
     envs[-1][name] = value
 
 
 def envs_delete(envs, name):
     assert isinstance(name, str)
-    # for e in reversed(envs):
-    #     if name in e:
-    #         e[name] = value
-    #         return
+
     del envs[-1][name]
 
 
