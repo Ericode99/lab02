@@ -54,7 +54,7 @@ def envs_set(envs, name, value):
     envs[-1][name] = value
 
 
-def envs_delete(envs, name, value):
+def envs_delete(envs, name):
     assert isinstance(name, str)
     # for e in reversed(envs):
     #     if name in e:
@@ -120,16 +120,21 @@ def do_hochrechnen(envs, args):
 
 def do_ausgeben(envs, args):
     assert len(args) > 0
+    statements = []
     for arg in args:
-        statement = do(envs, arg)
-        print(statement)
+        if isinstance(arg, str):
+            statements.append(arg)
+        else:
+            statements.append(do(envs, arg))
+    print(' '.join(map(str, statements)))
 
 
 def do_waerend(envs, args):
-    assert len(args) == 3
-    while do(envs, args[0]):
-        do(envs, args[1])
+    assert len(args) == 4
+    exec(args[0])
+    while eval(args[1]):
         do(envs, args[2])
+        exec(args[3])
 
 
 def do_liste(envs, args):
@@ -142,7 +147,7 @@ def do_liste(envs, args):
     assert len(
         args[2]) == size, f"Defined list size is {size}, but actual size is {len(args[2])}"
 
-    list_name = args[0]
+    list_name = args[1]
     value = args[2]
     envs_set(envs, list_name, value)
     return value
@@ -219,7 +224,7 @@ def do_lexikon_wert_setzen(envs, args):
     return dict_from_env
 
 
-def lexika_zusammenfuehren(envs, args):
+def do_lexika_zusammenfuehren(envs, args):
     assert len(args) == 3
     for arg in args:
         assert isinstance(arg, str)
@@ -264,11 +269,10 @@ OPERATIONS = {
 def do(envs, expr):
     if isinstance(expr, int):
         return expr
+    if isinstance(expr, str):
+        return expr
 
     assert isinstance(expr, list)
-    # if the first element is a number, it is assued that the goal is to pass a list and no unknown operations error is thrown, but the number is returned
-    if isinstance(expr[0], int):
-        return expr
     assert expr[0] in OPERATIONS, f"Unknown operation {expr[0]}"
     func = OPERATIONS[expr[0]]
     return func(envs, expr[1:])
