@@ -1,6 +1,8 @@
 import sys
 import json
 
+waehrend_envs = {}
+
 
 def do_funktion(envs, args):
     assert len(args) == 2
@@ -111,24 +113,23 @@ def do_ausgeben(envs, args):
     assert len(args) > 0
     statements = []
     for arg in args:
-        if isinstance(arg, str):
-            statements.append(arg)
-        else:
-            statements.append(do(envs, arg))
+        statements.append(do(envs, arg))
+
     print(' '.join(map(str, statements)))
 
 
-def do_waerend(envs, args):
+def do_waehrend(envs, args):
     assert len(args) == 4
-    exec(args[0])
-    while eval(args[1]):
+    exec(args[0], {}, waehrend_envs)
+    while eval(args[1], {}, waehrend_envs):
         do(envs, args[2])
-        exec(args[3])
+        exec(args[3], {}, waehrend_envs)
+    waehrend_envs.clear()
 
 
 def do_liste(envs, args):
     assert len(args) == 3
-    size = do(envs, args[0])
+    size = round(do(envs, args[0]))
     assert isinstance(size, int)
     assert isinstance(args[1], str)
     assert isinstance(args[2], list)
@@ -145,9 +146,9 @@ def do_liste(envs, args):
 def do_listen_wert_holen(envs, args):
     assert len(args) == 2
     assert isinstance(args[0], str)
-    assert isinstance(do(envs, args[1]), int)
+    assert isinstance(round(do(envs, args[1])), int)
     list_name = args[0]
-    position = do(envs, args[1])
+    position = round(do(envs, args[1]))
     list_from_env = envs_get(envs, list_name)
 
     # Make sure the found element is actually a list
@@ -159,9 +160,9 @@ def do_listen_wert_holen(envs, args):
 def do_listen_wert_setzen(envs, args):
     assert len(args) == 3
     assert isinstance(args[0], str)
-    assert isinstance(do(envs, args[1]), int)
+    assert isinstance(round(do(envs, args[1])), int)
     list_name = args[0]
-    position = do(envs, args[1])
+    position = round(do(envs, args[1]))
     list_from_env = envs_get(envs, list_name)
     new_value = do(envs, args[2])
 
@@ -256,7 +257,10 @@ OPERATIONS = {
 
 
 def do(envs, expr):
-    if isinstance(expr, int):
+    if isinstance(expr, int) or isinstance(expr, float):
+        return expr
+    if isinstance(expr, str) and expr in waehrend_envs:
+        expr = waehrend_envs[expr]
         return expr
     if isinstance(expr, str):
         return expr

@@ -7,13 +7,13 @@ Power:
 Print:
 ["ausgeben", ..., ..., ...]
 While:
-["waerend", variable_initialisation(e.g. i=0), while_condition(e.g. i<5), while_statement(e.g. ["ausgeben", i]), increment(e.g. i+=1)]
-Arrays:
-["liste", size, "array_name", list]
-["listen_wert_holen", "array_name", index]
-["listen_wert_setzen", "array_name", index, new_value]
+["waehrend", variable_initialisation(e.g. i=0), while_condition(e.g. i<5), while_statement(e.g. ["ausgeben", "i"]), increment(e.g. i+=1)]
+lists:
+["liste", size, "list_name", list]
+["listen_wert_holen", "list_name", index]
+["listen_wert_setzen", "list_name", index, new_value]
 Dictionary:
 ["lexikon", "dict_name", dictionary]
 ["lexikon_wert_holen", "dict_name", "keyname"]
-["lexikon_wert_setzen", "dict_name", "keyname", "new_value"]
+["lexikon_wert_setzen", "dict_name", "keyname", new_value]
 ["lexika_zusammenfuehren", "new_dict_name", "dict1_name", "dict2_name"]
