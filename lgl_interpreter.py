@@ -260,6 +260,39 @@ def do_lexika_zusammenfuehren(envs, args):
     return new_dict
 
 
+def do_machen(envs, args):
+    assert len(args) >= 1
+    cls = do(envs, args[0])
+    additional_args = args[1:] if len(args) > 1 else []
+    new_args = [cls["_new"]]
+    new_args.extend(additional_args)
+    res = do_aufrufen(envs, new_args)
+    return res
+
+
+def find(cls_name, method_name, envs):
+    cls = envs_get(envs, cls_name)
+    if cls == "None":
+        raise NotImplementedError("method_name")
+    if method_name in cls:
+        return cls[method_name]
+    return find(cls["_parent"], method_name, envs)
+
+
+def do_rufen(envs, args):
+    assert len(args) >= 2
+    cls_command = args[0]  #["abrufen", "classname"]
+    cls = do(envs, args[0])  # dict
+    method_name = args[1]
+    additional_args = args[2:] if len(args) > 2 else []
+    method = find(cls["_class"], method_name, envs)  # returns name of method
+    #formate to -> [method, ["abrufen", "classname"], additional_arg] (e.g. ["shape_density, ["abrufen", "sq"], 5]
+    new_args = [method, cls_command]
+    if additional_args:
+        new_args.extend(additional_args)
+    return do_aufrufen(envs, new_args)
+
+
 def do_klasse_definieren(envs, args):
     assert len(args) >= 2
     class_name = args[0]

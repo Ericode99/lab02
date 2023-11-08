@@ -1,74 +1,53 @@
 [
   "abfolge",
-  [
-    "klasse_definieren",
-    "Shape",
-    [
-      "konstruktor",
-      "shape_new",
-      ["name"]
-    ],
-    [
-      "methode",
-      "shape_density",
-      ["thing", "weight"],
-      ["dividieren", ["abrufen", "weight"], ["methode_aufrufen", ["abrufen", "thing"], "get_area"]]
+  ["lexikon", "Shape", [["_new", "shape_new"], ["density", "shape_density"], ["_parent", "None"], ["_classname", "Shape"]]],
+
+  ["lexikon", "Square", [["_new", "square_new"], ["area", "square_area"], ["_parent", "Shape"], ["_classname", "Square"]]],
+
+  ["lexikon", "Circle", [["_new", "circle_new"], ["area", "circle_area"], ["_parent", "Shape"], ["_classname", "Circle"]]],
+
+  ["setzen", "shape_new",
+    ["funktion", ["this_name"],
+      ["lexikon", "new_dict", [["name", ["abrufen", "this_name"], ["_class", "Shape"]]]]
     ]
   ],
-  [
-    "vererbung",
-    "Square",
-    "Shape",
-    [
-      "abfolge",
-      [
-        "konstruktor",
-        "square_new",
-        ["name", "side"]
-      ],
-      [
-        "methode",
-        "get_area",
-        ["thing"],
-        ["hochrechnen", ["abrufen", "thing", "side"], 2]
-      ]
+
+   ["setzen", "shape_density",
+    ["funktion", ["class", "weight"],
+      ["dividieren", ["abrufen", "weight"], ["rufen", ["abrufen", "class"], "area"]]
     ]
   ],
-  [
-    "vererbung",
-    "Circle",
-    "Shape",
-    [
-      "abfolge",
-      [
-        "konstruktor",
-        "circle_new",
-        ["name", "radius"]
-      ],
-      [
-        "methode",
-        "get_area",
-        ["thing"],
-        ["multiplizieren", ["hochrechnen", ["abrufen", "thing", "radius"], 2], "3.14"]
-      ]
+
+
+
+  ["setzen", "square_new",
+    ["funktion", ["name", "side"],
+        ["lexikon", "new_dict1", [["side", ["abrufen", "side"]], ["_class", "Square"], ["_parent", "Shape"]]]
     ]
   ],
-  [
-    "setzen",
-    "sq1",
-    ["objekt_erstellen", "Square", "sq", 3]
+
+  ["setzen", "square_area",
+    ["funktion", ["cls"],
+      ["hochrechnen", ["lexikon_wert_holen", "cls", "side"], 2]
+    ]
   ],
-  [
-    "setzen",
-    "ci1",
-    ["objekt_erstellen", "Circle", "ci", 2]
+
+  ["setzen", "circle_new",
+    ["funktion", ["name", "radius"],
+        ["lexikon", "new_dict1", [["radius", ["abrufen", "radius"]], ["_class", "Circle"], ["_parent", "Shape"]]]
+    ]
   ],
-  [
-    "ausgeben",
-    ["abrufen", "ci1"],["abrufen", "ci1"] 
+
+  ["setzen", "circle_area",
+    ["funktion", ["cls"],
+      ["multiplizieren",["hochrechnen", ["lexikon_wert_holen", "cls", "radius"], 2], 3.14]
+    ]
   ],
-  [
-    "ausgeben",
-    ["methode_aufrufen]
-  ]
+
+  ["setzen", "sq", ["machen", ["abrufen", "Square"], "sq", 3]],
+  ["setzen", "ci", ["machen", ["abrufen", "Circle"], "ci", 2]],
+  ["setzen", "density_sq", ["rufen", ["abrufen", "sq"], "density", 5]],
+  ["setzen", "density_ci", ["rufen", ["abrufen", "ci"], "density", 5]],
+  ["addieren", ["abrufen", "density_sq"], ["abrufen", "density_ci"]]
+
 ]
