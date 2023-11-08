@@ -46,7 +46,7 @@ In this part of the README the additional capabilities from the subtask `1) More
 
 -   In the `do_waehrend` function, as the while_condition and while statemnt only operations can be passed.
 
--   In the `do_liste` function, as a size input operations or numbers can be passed. The list_name has to be a string as well as in the other list operations (do_listen_wert_holen, do_listen_wert_setzen) The initial list items have to be passed as a list. The initial list can also contain operations, e.g. "aufrufen". In the other list operations the position can be passed as a number or operation.
+-   In the `do_liste` function, as a size input operations or numbers can be passed. The list_name has to be a string or a "aufrufen" call as well as in the other list operations (do_listen_wert_holen, do_listen_wert_setzen) The initial list items have to be passed as a list. The initial list can also contain operations, e.g. "aufrufen". In the other list operations the position can be passed as a number or operation.
 
 -   The size input and the list index input are rounded with the `round()` function in order to avoid errors if a float is passed, or the result of an operation returns a float.
 
