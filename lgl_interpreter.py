@@ -141,8 +141,12 @@ def do_liste(envs, args):
     assert len(
         args[2]) == size, f"Defined list size is {size}, but actual size is {len(args[2])}"
 
+    new_list = []
+    for item in args[2]:
+        new_list.append(do(envs, item))
+
     list_name = args[1]
-    value = args[2]
+    value = new_list
     envs_set(envs, list_name, value)
     return value
 
@@ -180,12 +184,15 @@ def do_listen_wert_setzen(envs, args):
 def do_lexikon(envs, args):
     assert len(args) == 2
     assert isinstance(args[0], str)
-    assert isinstance(args[1], dict)
+    assert isinstance(args[1], list)
 
     dict_name = args[0]
-    value = args[1]
-    envs_set(envs, dict_name, value)
-    return value
+    values = args[1]
+    new_dict = {}
+    for items in values:
+        new_dict[do(envs, items[0])] = do(envs, items[1])
+    envs_set(envs, dict_name, new_dict)
+    return new_dict
 
 
 def do_lexikon_wert_holen(envs, args):

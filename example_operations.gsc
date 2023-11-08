@@ -10,12 +10,12 @@
 
   ["ausgeben", "Now our while statement will count to 4"],
   ["setzen", "i", 0],
-  ["waehrend", ["leq", ["abrufen", "i"], 4], ["abfolge", ["ausgeben", "i"], ["addieren", ["abrufen", "i"], 1]]],
-  ["waehrend", "i=0", "i<5", ["ausgeben", "i"], "i=i+1"],
+  ["waehrend", ["leq", ["abrufen", "i"], 4], ["abfolge", ["ausgeben", ["abrufen","i"]], ["setzen", "i",["addieren", ["abrufen", "i"], 1]]]],
   ["ausgeben", "\n"],
 
   ["ausgeben", "Let's create a list"],
-  ["liste", ["dividieren", 10, 2], "ary1", ["test", "test", 1, 2, 3]],
+  ["setzen", "test", "test"],
+  ["liste", ["dividieren", 10, 2], "ary1", [["abrufen", "test"], ["abrufen", "test"], 1, 2, 3]],
   ["ausgeben", ["abrufen", "ary1"]],
   ["ausgeben", "And print value at index 1:"],
   ["ausgeben", ["listen_wert_holen", "ary1", 1]],
@@ -25,8 +25,8 @@
   ["ausgeben", "\n"],
 
   ["ausgeben", "Now we create 2 dictionaries:"],
-  ["lexikon", "dict1", {"Name": "Max", "Nachname": "Mustermann", "MatrikelNr": 12345}],
-  ["lexikon", "dict2", {"Notenschnitt": 6.0, "Hauptfach": "Informatik"}],
+  ["lexikon", "dict1", [["Name", "Max"], ["Nachname", "Mustermann"], ["MatrikelNr", 12345]]],
+  ["lexikon", "dict2", [["Notenschnitt", 6.0], ["Hauptfach", "Informatik"]]],
   ["ausgeben", ["abrufen", "dict1"]],
   ["ausgeben", ["abrufen", "dict2"]],
   ["ausgeben", "\n"],
