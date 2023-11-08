@@ -64,7 +64,11 @@
     ["objekt_erstellen", "Circle", "ci", 2]
   ],
   [
-  "ausgeben",
-  ["abrufen", "ci1"],["abrufen", "ci1"] 
+    "ausgeben",
+    ["abrufen", "ci1"],["abrufen", "ci1"] 
+  ],
+  [
+    "ausgeben",
+    ["methode_aufrufen]
   ]
 ]

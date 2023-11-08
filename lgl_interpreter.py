@@ -333,7 +333,7 @@ def do_methode_aufrufen(envs, args):
     class_def = envs_get(envs, object_instance["class"])
     method = class_def["methods"][method_name]
 
-    # Prepare the environment for the method call
+    # Prepare the environment for the method 
     local_env = object_instance["properties"].copy()
     local_env.update(zip(method["params"], method_args))
 
