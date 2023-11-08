@@ -118,13 +118,17 @@ def do_ausgeben(envs, args):
     print(' '.join(map(str, statements)))
 
 
+def do_leq(env, args):
+    assert len(args) == 2
+    return do(env, args[0]) <= do(env, args[1])
+
+
 def do_waehrend(envs, args):
-    assert len(args) == 4
-    exec(args[0], {}, waehrend_envs)
-    while eval(args[1], {}, waehrend_envs):
-        do(envs, args[2])
-        exec(args[3], {}, waehrend_envs)
-    waehrend_envs.clear()
+    print(args)
+    assert len(args) == 2
+    while do(envs, args[0]):
+        res = do(envs, args[1])
+    return res
 
 
 def do_liste(envs, args):

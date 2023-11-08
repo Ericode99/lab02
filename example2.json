@@ -1,0 +1,4 @@
+["abfolge",
+  ["setzen", "i", 0],
+  ["waehrend", ["leq", ["abrufen", "i"], 4], ["abfolge", ["ausgeben", ["abrufen","i"]], ["setzen", "i",["addieren", ["abrufen", "i"], 1]]]]
+]

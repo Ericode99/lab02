@@ -9,6 +9,8 @@
   ["ausgeben", "\n"],
 
   ["ausgeben", "Now our while statement will count to 4"],
+  ["setzen", "i", 0],
+  ["waehrend", ["leq", ["abrufen", "i"], 4], ["abfolge", ["ausgeben", "i"], ["addieren", ["abrufen", "i"], 1]]],
   ["waehrend", "i=0", "i<5", ["ausgeben", "i"], "i=i+1"],
   ["ausgeben", "\n"],
 
