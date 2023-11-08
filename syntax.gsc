@@ -13,7 +13,7 @@ lists:
 ["listen_wert_holen", "list_name", index]
 ["listen_wert_setzen", "list_name", index, new_value]
 Dictionary:
-["lexikon", "dict_name", dictionary]
+["lexikon", "dict_name", [["Name", "Max"], ["Nachname", "Mustermann"], ["MatrikelNr", 12345]]]
 ["lexikon_wert_holen", "dict_name", "keyname"]
 ["lexikon_wert_setzen", "dict_name", "keyname", new_value]
 ["lexika_zusammenfuehren", "new_dict_name", "dict1_name", "dict2_name"]
