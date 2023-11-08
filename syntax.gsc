@@ -7,7 +7,7 @@ Power:
 Print:
 ["ausgeben", ..., ..., ...]
 While:
-["waehrend", variable_initialisation(e.g. i=0), while_condition(e.g. i<5), while_statement(e.g. ["ausgeben", "i"]), increment(e.g. i+=1)]
+["waehrend", while_condition(e.g. ["setzen", "var1", "test"]), while_statement(e.g. ["abfolge", ["ausgeben", ["abrufen","i"]], ["setzen", "i",["addieren", ["abrufen", "i"], 1]]])]
 lists:
 ["liste", size, "list_name", list]
 ["listen_wert_holen", "list_name", index]

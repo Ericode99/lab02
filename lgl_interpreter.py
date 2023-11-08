@@ -1,8 +1,6 @@
 import sys
 import json
 
-waehrend_envs = {}
-
 
 def do_funktion(envs, args):
     assert len(args) == 2
@@ -118,13 +116,22 @@ def do_ausgeben(envs, args):
     print(' '.join(map(str, statements)))
 
 
-def do_leq(env, args):
+def do_kleinerAls(env, args):
     assert len(args) == 2
-    return do(env, args[0]) <= do(env, args[1])
+    return do(env, args[0]) < do(env, args[1])
+
+
+def do_groesserAls(env, args):
+    assert len(args) == 2
+    return do(env, args[0]) > do(env, args[1])
+
+
+def do_gleich(env, args):
+    assert len(args) == 2
+    return do(env, args[0]) == do(env, args[1])
 
 
 def do_waehrend(envs, args):
-    print(args)
     assert len(args) == 2
     while do(envs, args[0]):
         res = do(envs, args[1])
@@ -252,6 +259,7 @@ def do_lexika_zusammenfuehren(envs, args):
 
     return new_dict
 
+
 def do_klasse_definieren(envs, args):
     assert len(args) >= 2
     class_name = args[0]
@@ -284,6 +292,7 @@ def do_klasse_definieren(envs, args):
     envs_set(envs, class_name, class_def)
     return class_def
 
+
 def do_objekt_erstellen(envs, args):
     assert len(args) >= 2
     class_name = args[0]
@@ -291,7 +300,8 @@ def do_objekt_erstellen(envs, args):
 
     # Retrieve the class definition from the environment
     class_def = envs_get(envs, class_name)
-    assert isinstance(class_def, dict), f"{class_name} is not a class definition"
+    assert isinstance(
+        class_def, dict), f"{class_name} is not a class definition"
     assert class_def["constructor"] is not None, f"{class_name} does not have a constructor"
 
     # Create the object instance as a dictionary
@@ -301,24 +311,27 @@ def do_objekt_erstellen(envs, args):
     }
 
     # If there's a constructor, call it
-    #if class_def["constructor"]:
+    # if class_def["constructor"]:
     #    constructor_name = class_def["constructor"]["name"]
     #    do_methode_aufrufen(envs, [object_instance, constructor_name] + instance_properties)
 
     return object_instance
+
 
 def do_vererbung(envs, args):
     assert len(args) == 3
     child_class_name, base_class_name, child_class_body = args
     base_class = envs_get(envs, base_class_name)
     assert isinstance(base_class, dict), f"{base_class_name} is not a class"
-    child_class_definition = do_klasse_definieren(envs, [child_class_name] + child_class_body)
-    
+    child_class_definition = do_klasse_definieren(
+        envs, [child_class_name] + child_class_body)
+
     # Inherit methods from the base class
     child_class_definition["methods"].update(base_class["methods"])
-    
+
     child_class_definition["base_class"] = base_class
     return child_class_definition
+
 
 def do_methode_aufrufen(envs, args):
     assert len(args) >= 2
@@ -327,7 +340,8 @@ def do_methode_aufrufen(envs, args):
     method_args = args[2:]
 
     # Ensure the object instance is a dictionary
-    assert isinstance(object_instance, dict), "First argument must be an object"
+    assert isinstance(
+        object_instance, dict), "First argument must be an object"
 
     # Retrieve the method from the class definition
     class_def = envs_get(envs, object_instance["class"])
@@ -357,9 +371,6 @@ OPERATIONS = {
 
 def do(envs, expr):
     if isinstance(expr, int) or isinstance(expr, float):
-        return expr
-    if isinstance(expr, str) and expr in waehrend_envs:
-        expr = waehrend_envs[expr]
         return expr
     if isinstance(expr, str):
         return expr

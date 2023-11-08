@@ -10,12 +10,12 @@
 
   ["ausgeben", "Now our while statement will count to 4"],
   ["setzen", "i", 0],
-  ["waehrend", ["leq", ["abrufen", "i"], 4], ["abfolge", ["ausgeben", ["abrufen","i"]], ["setzen", "i",["addieren", ["abrufen", "i"], 1]]]],
+  ["waehrend", ["kleinerAls", ["abrufen", "i"], 5], ["abfolge", ["ausgeben", ["abrufen","i"]], ["setzen", "i",["addieren", ["abrufen", "i"], 1]]]],
   ["ausgeben", "\n"],
 
   ["ausgeben", "Let's create a list"],
-  ["setzen", "test", "test"],
-  ["liste", ["dividieren", 10, 2], "ary1", [["abrufen", "test"], ["abrufen", "test"], 1, 2, 3]],
+  ["setzen", "var1", "test"],
+  ["liste", ["dividieren", 10, 2], "ary1", [["abrufen", "var1"], ["abrufen", "var1"], 1, 2, 3]],
   ["ausgeben", ["abrufen", "ary1"]],
   ["ausgeben", "And print value at index 1:"],
   ["ausgeben", ["listen_wert_holen", "ary1", 1]],
