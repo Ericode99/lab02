@@ -252,6 +252,94 @@ def do_lexika_zusammenfuehren(envs, args):
 
     return new_dict
 
+def do_klasse_definieren(envs, args):
+    assert len(args) >= 2
+    class_name = args[0]
+    class_body = args[1:]
+
+    # Create the class definition
+    class_def = {
+        "methods": {},
+        "properties": [],
+        "constructor": None,
+        "base_class": None
+    }
+
+    # Process the class body to fill the class definition
+    for item in class_body:
+        if item[0] == "konstruktor":
+            class_def["constructor"] = {
+                "name": item[1],
+                "params": item[2]
+            }
+        elif item[0] == "methode":
+            method_name = item[1]
+            class_def["methods"][method_name] = {
+                "params": item[2],
+                "body": item[3]
+            }
+        # Add more processing if needed for properties, inheritance, etc.
+
+    # Save the class definition in the environment
+    envs_set(envs, class_name, class_def)
+    return class_def
+
+def do_objekt_erstellen(envs, args):
+    assert len(args) >= 2
+    class_name = args[0]
+    instance_properties = args[1:]
+
+    # Retrieve the class definition from the environment
+    class_def = envs_get(envs, class_name)
+    assert isinstance(class_def, dict), f"{class_name} is not a class definition"
+    assert class_def["constructor"] is not None, f"{class_name} does not have a constructor"
+
+    # Create the object instance as a dictionary
+    object_instance = {
+        "class": class_name,
+        "properties": dict(zip(class_def["constructor"]["params"], instance_properties))
+    }
+
+    # If there's a constructor, call it
+    #if class_def["constructor"]:
+    #    constructor_name = class_def["constructor"]["name"]
+    #    do_methode_aufrufen(envs, [object_instance, constructor_name] + instance_properties)
+
+    return object_instance
+
+def do_vererbung(envs, args):
+    assert len(args) == 3
+    child_class_name, base_class_name, child_class_body = args
+    base_class = envs_get(envs, base_class_name)
+    assert isinstance(base_class, dict), f"{base_class_name} is not a class"
+    child_class_definition = do_klasse_definieren(envs, [child_class_name] + child_class_body)
+    
+    # Inherit methods from the base class
+    child_class_definition["methods"].update(base_class["methods"])
+    
+    child_class_definition["base_class"] = base_class
+    return child_class_definition
+
+def do_methode_aufrufen(envs, args):
+    assert len(args) >= 2
+    object_instance = args[0]
+    method_name = args[1]
+    method_args = args[2:]
+
+    # Ensure the object instance is a dictionary
+    assert isinstance(object_instance, dict), "First argument must be an object"
+
+    # Retrieve the method from the class definition
+    class_def = envs_get(envs, object_instance["class"])
+    method = class_def["methods"][method_name]
+
+    # Prepare the environment for the method call
+    local_env = object_instance["properties"].copy()
+    local_env.update(zip(method["params"], method_args))
+
+    # Call the method
+    return do(envs + [local_env], method["body"])
+
 
 def do_abfolge(envs, args):
     assert len(args) > 0
