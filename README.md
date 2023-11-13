@@ -76,14 +76,14 @@ In this part of the README the additional capabilities from the subtask `3) Trac
 - `decorator_funciton` takes as argument the original function which is wrapped with `@decorator_function`
 - `wrapper_function` implements the optional possibility of tracing by checking if a logging file was passed.
 - If so it logs the information of the original function to the trace_file.log file in the csv format: `unique_id`, `function_name`, `start/stop`, `start_time/ stop_time` 
-- start_time and stop_time is implemented using the datetime api
+  start_time and stop_time is implemented using the datetime api
 
 *reporting.py*
 - can be executed with `reporting.py trace_file.log`
 
 - `get_function_data` takes the logged data from lgl_interpreter and creates a dictionary which keeps track of all the functions called,
-- how often the function was called, the time all the calls to the function took and the average time the execution of 
-- the function took. In the format of e.g. {'do': [1, 23, 23]}
+  how often the function was called, the time all the calls to the function took and the average time the execution of 
+  the function took. In the format of e.g. {'do': [1, 23, 23]}
 
 
 ### Decisions Taken
