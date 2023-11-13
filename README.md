@@ -116,4 +116,4 @@ _reporting.py_
 
 ### Decisions Taken
 
-- we use the prettytable to formate and output the data of the dictionary returned by `get_funciton_data`
+- we use the prettytable to formate and output the data of the dictionary returned by `get_function_data`
