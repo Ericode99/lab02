@@ -86,6 +86,10 @@ In this part of the README the additional capabilities from the subtask `2) An O
 
 - When a method is not found, the function `find` throws an error. This ensures that not existing methods cannot be executed.
 
+**Polymorphism**
+
+- With the help of the operations made in Task 1, polymorphism also works.
+
 ### Execution
 
 - the following line has to be executed in the terminal for the code to work with the LGL: `python lgl_interpreter.py example_class.gsc`
